@@ -24,7 +24,7 @@
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### For use our application
+### To use our application
 
 1. Clone the repo
    ```sh
