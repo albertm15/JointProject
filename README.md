@@ -7,7 +7,7 @@
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Comando per Git
+## Git commands
 * Create a branch (manualment desde GitHub)
 * git pull (actualitzar tot el repositori)
 * git checkout name_of_branch (canviar de rama)
