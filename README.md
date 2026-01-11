@@ -24,6 +24,26 @@
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+...
+### Built With
+* Python
+* FrameWork - Django
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Security Configuration Note
+> **⚠️ Important:** The `SECRET_KEY` in `djangoProject/settings.py` is intentionally exposed in this repository to facilitate the setup and evaluation of the project in a development environment.
+>
+> **For Production:** If deploying this application to a production environment, you must:
+> 1.  Hide the `SECRET_KEY` using environment variables.
+> 2.  Set `DEBUG = False`.
+> 3.  Ensure `ALLOWED_HOSTS` is properly configured.
+
+### For use our application
+
+1. Clone the repo
+...
+
 ### To use our application
 
 1. Clone the repo
