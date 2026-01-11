@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <head>
+        <title>Cobraments restaurant</title>
+    </head>
+    
+        <title>Añadir pedido a la reserva del hueped</title>
+        <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+
+    <body>
+        <h1>Añadir pedido a la reserva del hueped</h1>
+        <form method="post" class="form_vertical">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="button-66">Confirmar</button>
+        </form>
+    </body>
+{% endblock %}

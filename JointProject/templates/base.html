@@ -1,0 +1,314 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'>
+    <link rel="shortcut icon" type="image/png" href="{% static 'img/logo.png' %}">
+
+</head>
+
+<body>
+<nav>
+  <div class="wrapper">
+      <div class="logo"><a href="{% url 'homePage' %}"><img src="{% static 'img/logo.png' %}" alt="Logo" style="max-height: 100px;"></a></div>
+      <input type="radio" name="slider" id="menu-btn">
+      <input type="radio" name="slider" id="close-btn">
+
+      {% if user.user_type == 'roomStaff' %}
+          <ul class="nav-links">
+              <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
+              <li>
+                  <a href="#" class="desktop-item">Habitaciones</a>
+                  <input type="checkbox" id="showDrop1">
+                  <label for="showDrop1" class="mobile-item">Habitaciones</label>
+                  <ul class="drop-menu">
+                      <li><a href="{% url 'getAvailableRooms' %}">Habitaciones Disponibles</a></li>
+                      <li><a href="{% url 'obtainRoomBookings' %}">Habitaciones Reservadas</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a href="#" class="desktop-item">Restaurante</a>
+                  <input type="checkbox" id="showDrop2">
+                  <label for="showDrop2" class="mobile-item">Restaurante</label>
+                  <ul class="drop-menu">
+                      <li><a href="{% url 'show_tables' %}">Mesas Disponibles</a></li>
+                      <li><a href="{% url 'getTablesReservationHistory' %}">Mesas Reservadas</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a href="#" class="desktop-item">Pagos</a>
+                  <input type="checkbox" id="showDrop3">
+                  <label for="showDrop3" class="mobile-item">Pagos</label>
+                  <ul class="drop-menu">
+                      <li><a href="{% url 'getCustomersBills' %}">Pagos Pendientes</a></li>
+                      <li><a href="{% url 'addItemToBill' %}">Añadir Pago</a></li>
+                      <li><a href="{% url 'getCustomersCompletedPayments' %}">Pagos Realizados</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a href="#" class="desktop-item">Usuario</a>
+                  <input type="checkbox" id="showDrop4">
+                  <label for="showDrop4" class="mobile-item">Usuario</label>
+                  <ul class="drop-menu">
+                      <li><a href="{% url 'logOut' %}">Cerrar sesión</a></li>
+                      <li><a href="{% url 'profilePage' %}">Perfil usuario</a></li>
+                  </ul>
+              </li>
+          </ul>
+          <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
+
+      {% elif user.user_type == 'cleaningStaff' %}
+          <ul class="nav-links">
+              <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
+              
+              <li>
+                  <a href="#" class="desktop-item">Limpieza</a>
+                  <input type="checkbox" id="showDrop1">
+                  <label for="showDrop1" class="mobile-item">Limpieza</label>
+                  <ul class="drop-menu">
+                      <li><a href="{% url 'room_bookings_cleaning' %}">Limpieza pendiente</a></li>
+                      <li><a href="{% url 'room_bookings_clean' %}">Limpieza finalizada</a></li>
+                  </ul>
+              </li>
+
+              <li>
+                  <a href="#" class="desktop-item">Usuario</a>
+                  <input type="checkbox" id="showDrop2">
+                  <label for="showDrop2" class="mobile-item">Usuario</label>
+                  <ul class="drop-menu">
+                      <li><a href="{% url 'logOut' %}">Cerrar sesión</a></li>
+                      <li><a href="{% url 'profilePage' %}">Perfil usuario</a></li>
+                  </ul>
+              </li>
+          </ul>
+          <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
+        
+      {% elif user.user_type == 'restaurantStaff' %}
+          <ul class="nav-links">
+              <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
+              <li>
+                  <a href="#" class="desktop-item">Restaurante</a>
+                  <input type="checkbox" id="showDrop1">
+                  <label for="showDrop1" class="mobile-item">Restaurante</label>
+                  <ul class="drop-menu">
+                      <li><a href="{% url 'show_tables' %}">Mesas disponibles</a></li>
+                      <li><a href="{% url 'getTablesReservationHistory' %}">Mesas reservadas</a></li>
+                      <li><a href="{% url 'getRestaurantOrdersHistory' %}">Pedidos realizados</a></li>
+                      <li><a href="{% url 'addRestaurantOrder' %}">Añadir pedido</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a href="#" class="desktop-item">Pagos</a>
+                  <input type="checkbox" id="showDrop2">
+                  <label for="showDrop2" class="mobile-item">Pagos</label>
+                  <ul class="drop-menu">
+                      <li><a href="{% url 'getCustomersBills' %}">Pagos Pendientes</a></li>
+                      <li><a href="{% url 'addItemToBill' %}">Añadir Pago</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a href="#" class="desktop-item">Usuario</a>
+                  <input type="checkbox" id="showDrop3">
+                  <label for="showDrop3" class="mobile-item">Usuario</label>
+                  <ul class="drop-menu">
+                      <li><a href="{% url 'logOut' %}">Cerrar sesión</a></li>
+                      <li><a href="{% url 'profilePage' %}">Perfil usuario</a></li>
+                  </ul>
+              </li>
+          </ul>
+          <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
+      {% elif user.user_type == 'admin' %}
+          <ul class="nav-links">
+              <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
+              <li>
+                  <a href="#" class="desktop-item">Habitaciones</a>
+                  <input type="checkbox" id="showDrop1">
+                  <label for="showDrop1" class="mobile-item">Habitaciones</label>
+                  <ul class="drop-menu">
+                      <li><a href="{% url 'getAvailableRooms' %}">Habitaciones Disponibles</a></li>
+                      <li><a href="{% url 'obtainRoomBookings' %}">Habitaciones Reservadas</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a href="#" class="desktop-item">Restaurante</a>
+                  <input type="checkbox" id="showDrop2">
+                  <label for="showDrop2" class="mobile-item">Restaurante</label>
+                  <ul class="drop-menu">
+                      <li><a href="{% url 'show_tables' %}">Mesas Disponibles</a></li>
+                      <li><a href="{% url 'getTablesReservationHistory' %}">Mesas Reservadas</a></li>
+                      <li><a href="{% url 'getRestaurantOrdersHistory' %}">Pedidos realizados</a></li>
+                      <li><a href="{% url 'addRestaurantOrder' %}">Añadir pedido</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a href="#" class="desktop-item">Pagos</a>
+                  <input type="checkbox" id="showDrop3">
+                  <label for="showDrop3" class="mobile-item">Pagos</label>
+                  <ul class="drop-menu">
+                      <li><a href="{% url 'getCustomersBills' %}">Pagos Pendientes</a></li>
+                      <li><a href="{% url 'addItemToBill' %}">Añadir Pago</a></li>
+                      <li><a href="{% url 'getCustomersCompletedPayments' %}">Pagos Realizados</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a href="#" class="desktop-item">Limpieza</a>
+                  <input type="checkbox" id="showDrop4">
+                  <label for="showDrop4" class="mobile-item">Limpieza</label>
+                  <ul class="drop-menu">
+                      <li><a href="{% url 'room_bookings_cleaning' %}">Limpieza pendiente</a></li>
+                      <li><a href="{% url 'room_bookings_clean' %}">Limpieza finalizada</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a href="#" class="desktop-item">Contabilidad</a>
+                  <input type="checkbox" id="showDrop1">
+                  <label for="showDrop1" class="mobile-item">Contabilidad</label>
+                  <ul class="drop-menu">
+                      <li><a href="{% url 'getHotelBills' %}">Facturas</a></li>
+                      <li><a href="{% url 'manage_prices' %}">Modificar Precios</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a href="#" class="desktop-item">Usuario</a>
+                  <input type="checkbox" id="showDrop6">
+                  <label for="showDrop6" class="mobile-item">Usuario</label>
+                  <ul class="drop-menu">
+                      <li><a href="{% url 'logOut' %}">Cerrar sesión</a></li>
+                      <li><a href="{% url 'profilePage' %}">Perfil usuario</a></li>
+                  </ul>
+              </li>
+          </ul>
+          <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
+      {% elif user.user_type == 'client' %}
+          <ul class="nav-links">
+              <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
+              <li>
+                  <a href="#" class="desktop-item">Habitaciones</a>
+                  <input type="checkbox" id="showDrop1">
+                  <label for="showDrop1" class="mobile-item">Habitaciones</label>
+                  <ul class="drop-menu">
+                      <li><a href="{% url 'getAvailableRooms' %}">Habitaciones Disponibles</a></li>
+                      <li><a href="{% url 'obtainRoomBookings' %}">Habitaciones Reservadas</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a href="#" class="desktop-item">Restaurante</a>
+                  <input type="checkbox" id="showDrop2">
+                  <label for="showDrop2" class="mobile-item">Restaurante</label>
+                  <ul class="drop-menu">
+                      <li><a href="{% url 'show_tables' %}">Mesas Disponibles</a></li>
+                      <li><a href="{% url 'getTablesReservationHistory' %}">Mesas Reservadas</a></li>
+                  </ul>
+              </li>
+              <li>
+                  <a href="#" class="desktop-item">Usuario</a>
+                  <input type="checkbox" id="showDrop3">
+                  <label for="showDrop3" class="mobile-item">Usuario</label>
+                  <ul class="drop-menu">
+                      <li><a href="{% url 'logOut' %}">Cerrar sesión</a></li>
+                      <li><a href="{% url 'profilePage' %}">Perfil usuario</a></li>
+                  </ul>
+              </li>
+          </ul>
+          <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
+      {% elif user.user_type == 'comptable' %}
+          <ul class="nav-links">
+              <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
+              <li>
+                  <a href="#" class="desktop-item">Contabilidad</a>
+                  <input type="checkbox" id="showDrop1">
+                  <label for="showDrop1" class="mobile-item">Contabilidad</label>
+                  <ul class="drop-menu">
+                      <li><a href="{% url 'getHotelBills' %}">Facturas</a></li>
+                      <li><a href="{% url 'manage_prices' %}">Modificar Precios</a></li>
+                  </ul>
+              </li>
+          
+            <li>
+                  <a href="#" class="desktop-item">Usuario</a>
+                  <input type="checkbox" id="showDrop3">
+                  <label for="showDrop3" class="mobile-item">Usuario</label>
+                  <ul class="drop-menu">
+                      <li><a href="{% url 'logOut' %}">Cerrar sesión</a></li>
+                      <li><a href="{% url 'profilePage' %}">Perfil usuario</a></li>
+                  </ul>
+              </li>
+          </ul>
+          <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
+
+      {% else %}
+          <ul class="nav-links">
+              <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
+              <li>
+                  <a href="{% url 'about_us' %}" class="desktop-item">Acerca de</a>
+                  <input type="checkbox" id="showDrop1">
+                  <label for="showDrop1" class="mobile-item">Acerca de</label>
+              </li>
+              <li>
+                  <a href="#" class="desktop-item">Servicios</a>
+                  <input type="checkbox" id="showDrop2">
+                  <label for="showDrop2" class="mobile-item">Servicios</label>
+              </li>
+              <li>
+                  <a href="#" class="desktop-item">Usuario</a>
+                  <input type="checkbox" id="showDrop3">
+                  <label for="showDrop3" class="mobile-item">Usuario</label>
+                  <ul class="drop-menu">
+                      <li><a href="{% url 'register' %}">Registrarse</a></li>
+                      <li><a href="{% url 'signIn' %}">Iniciar sesión</a></li>
+                  </ul>
+              </li>
+          </ul>
+          <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
+      {% endif %}
+  </div>
+</nav>
+
+<div class="main-content">
+<!-- Contingut principal -->
+<div class="body-text">
+    {% block content %}
+    {% endblock %}
+</div>
+</div>
+<!-- Footer -->
+<footer class="footer">
+    <div class="waves">
+      <div class="wave" id="wave1"></div>
+      <div class="wave" id="wave2"></div>
+      <div class="wave" id="wave3"></div>
+      <div class="wave" id="wave4"></div>
+    </div>
+    <ul class="social-icon">
+      <li class="social-icon__item"><a class="social-icon__link" href="https://www.facebook.com/universitatdelleida/?locale=ca_ES">
+          <ion-icon name="logo-facebook"></ion-icon>
+        </a></li>
+      <li class="social-icon__item"><a class="social-icon__link" href="https://twitter.com/UdL_info?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">
+          <ion-icon name="logo-twitter"></ion-icon>
+        </a></li>
+      <li class="social-icon__item"><a class="social-icon__link" href="https://www.linkedin.com/school/universitat-de-lleida/">
+          <ion-icon name="logo-linkedin"></ion-icon>
+        </a></li>
+      <li class="social-icon__item"><a class="social-icon__link" href="https://www.instagram.com/epsudl/">
+          <ion-icon name="logo-instagram"></ion-icon>
+        </a></li>
+    </ul>
+    <ul class="menu">
+      <li class="menu__item"><a class="menu__link" href="{% url 'homePage' %}">Home</a></li>
+      <li class="menu__item"><a class="menu__link" href="{% url 'about_us' %}">Acerca de</a></li>
+      <li class="menu__item"><a class="menu__link" href="#">Servicios</a></li>
+
+    </ul>
+    <p> © 2024 Hotel Las Palmeras. All rights reserved </p>
+    <p> Contact: info@mycompany.com | Phone: 123-456-7890 </p>
+</footer>
+
+<!-- Scripts -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+</html>

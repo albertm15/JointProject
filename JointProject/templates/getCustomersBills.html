@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <head>
+        <title>Obtención pagos clientes</title>
+    </head>
+    
+    <title>Pagos pendientes de los clientes</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
+<body>
+    <h1>Pagos pendientes de los clientes</h1>
+    <table class="styled-table2 available-table">
+        <thead>
+            <tr>
+                <th>Pagos pendientes</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for bill in bills %}
+            <tr>
+                <td>{{ bill.roomBooking }} <a href="{% url 'billDetails' bill.id %}" class="button-66" role="button">Ver pagos pendientes</a></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No hay pagos pendientes</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+{% endblock %}

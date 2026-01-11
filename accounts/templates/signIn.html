@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Iniciar sesión</title>
+        <link rel="stylesheet" href="{% static 'css/signIn.css' %}">
+        <link rel="shortcut icon" type="image/png" href="{% static 'img/logo.png' %}">
+    </head>
+    <body>
+        <div class="user-image" >
+            <img src="{% static 'img/fondo.jpg' %}" alt="user-image">
+        </div>
+        <div class="login_div">
+            <h1>Iniciar sesión</h1>
+            <div class="form_div">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form_error">
+                        {% if messages %}
+                             {% for message in messages %}
+                                 <p>{{ message }}</p>
+                             {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="form_field">
+                        <input type="text" name="email" placeholder="Correo electrónico">
+                        <input type="password" name="password" placeholder="Contraseña">
+                    
+                        
+                    </div>
+                    <button type="Submit">Iniciar sesión</button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

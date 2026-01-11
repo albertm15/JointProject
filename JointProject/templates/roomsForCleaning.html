@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
+    
+    <h2>Room Bookings que Necesitan Limpieza</h2>
+    <form method="get">
+        {{ form.as_p }}
+        <button type="submit">Filtrar</button>
+    </form>
+
+    <h3>Listado de Reservas para Limpiar:</h3>
+    <ul>
+        {% for booking in room_bookings %}
+            <li>{{ booking }}</li>
+        {% empty %}
+            <li>No hay reservas para limpiar.</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

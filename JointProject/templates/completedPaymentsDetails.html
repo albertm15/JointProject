@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <head>
+        <title>Detalls pagaments</title>
+    </head>
+    
+    <title>Detalles del pago realizado del cliente</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
+
+<body>
+    <h1>Detalles del pago realizado del cliente</h1>
+    <table class="styled-table available-table">
+        <thead>
+            <tr>
+                <th>Reservas de habitaciones</th>
+                <th>Cantidad total pagada</th>
+                <th>Concepto</th>
+                <th>Detalles</th>
+                <th>Precio</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in completedPayment.items.all %}
+                <tr>
+                    <td>{{ completedPayment.roomBooking }}</td>
+                    <td>{{ totalPayed }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.details }}</td>
+                    <td>{{ item.price }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+{% endblock %}
+

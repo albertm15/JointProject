@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Administrar Precios
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/manage_prices.css' %}">
+<h1>Modificar Precios</h1>
+<div class="container">
+    <div class="column">
+        <div class="table-container">
+            <h3>Modificar Precio Reserva Habitación</h3>
+            <form method="post">
+                {% csrf_token %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Tipo de Habitación</th>
+                            <th>Precio actual</th>
+                            <th>Nuevo Precio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for room_type, price in room_prices.items %}
+                        <tr>
+                            <td>{{ room_type }}</td>
+                            <td>{{ price }},00 €</td>
+                            <td><input type="number" name="{{ room_type }}" value="{{ price }}"></td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="2">No hay precios definidos.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="table-container">
+            <h3>Modificar Precio Productos Restaurante</h3>
+            <form method="post">
+                {% csrf_token %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nombre del Producto</th>
+                            <th>Precio actual</th>
+                            <th>Nuevo Precio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in restaurant_products %}
+                        <tr>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.price }}</td>
+                            <td><input type="number" name="price_{{ product.id }}" value="{{ product.price }}"></td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="2">No hay productos de restaurante registrados.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <head>
+        <title>Habitaciones reservadas</title>
+    </head>
+    
+        <title>Reservas de habitaciones</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
+        <style>
+            .button-container {
+                display: flex;
+                align-items: center;
+            }
+
+            .button-container button {
+                margin-right: 10px;
+            }
+        </style>
+
+    <body>
+        <h1>Reservas de habitaciones</h1>
+
+        {% if bookingState == 'active' %}
+            <a href="{% url 'obtainRoomBookings' 'active' %}"><button type="submit" class="button-66" style="background-color: grey">Reservas activas</button></a>
+        {% else %}
+            <a href="{% url 'obtainRoomBookings' 'active' %}"><button type="submit" class="button-66">Reservas activas</button></a>
+        {% endif %}
+
+        {% if bookingState == 'cancelled' %}
+            <a href="{% url 'obtainRoomBookings' 'cancelled' %}"><button type="submit" class="button-66" style="background-color: grey">Reservas canceladas</button></a>
+        {% else %}
+            <a href="{% url 'obtainRoomBookings' 'cancelled' %}"><button type="submit" class="button-66">Reservas canceladas</button></a>
+        {% endif %}
+
+        <table class="styled-table available-table">
+            <thead>
+                <tr>
+                    <th>Habitación</th>
+                    <th>Fecha de inicio</th>
+                    <th>Fecha de finalización</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for roomBooking in roomBookings %}
+                    {% if roomBooking.bookingState == bookingState and not roomBooking.checkOut %}
+                        <tr>
+                            <td>{{ roomBooking.roomBooked.roomNumber }}</td>
+                            <td>{{ roomBooking.startDate }}</td>
+                            <td>{{ roomBooking.endDate }}</td>
+                            <td><a href="{% url 'roomBookingDetails' roomBooking.id %}"><button type="submit" class="button-66">Ver detalles</button></a>
+                                {% if bookingState == 'active' and not roomBooking.checkIn %}
+                                    <a href="{% url 'cancelRoomBooking' roomBooking.id %}"><button type="submit" class="button-55">Cancelar</button></a>
+                                {% elif bookingState == 'cancelled' and not roomBooking.checkIn %}
+                                    <a href="{% url 'activateRoomBooking' roomBooking.id %}"><button type="submit" class="button-66">Activar</button></a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% empty %}
+                    <tr>
+                        <td colspan="5">No hay habitaciones {{ room.roomType }} disponibles en esta fecha y hora.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+{% endblock %}

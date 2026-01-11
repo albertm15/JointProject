@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <head>
+        <title>Detalls habitacio reservada</title>
+    </head>
+    
+<title>Detalles de la reserva de la habitacion</title>
+<link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
+{% if roomBooking.userWhoBooked == user %}
+<body>
+    <div class="styled-table">
+        <h1>Detalles de la reserva de la habitacion</h1>
+        <ul>
+            <p><strong>Habitacion reservada:</strong> {{ roomBooking.roomBooked.roomNumber }}</p>
+            <p><strong>Tipo de habitacion:</strong> {{ roomBooking.roomBooked.roomType }}</p>
+            <p><strong>Fecha de inicio:</strong> {{ roomBooking.startDate }}</p>
+            <p><strong>Fecha de finalizacion:</strong> {{ roomBooking.endDate }}</p>
+            <p><strong>Usuario que ha reservado:</strong> {{ roomBooking.userWhoBooked }}</p>
+            <p><strong>Huesped:</strong> {{ roomBooking.guestName }}</p>
+            <p><strong>Correo electronico del huesped:</strong> {{ roomBooking.guestEmail }}</p>
+            <p><strong>Número de telefono del huesped:</strong> {{ roomBooking.guestPhoneNumber }}</p>
+            <p><strong>DNI del huesped:</strong> {{ roomBooking.guestDNI }}</p>
+            <p><strong>Numero de huespedes en la habitación:</strong> {{ roomBooking.numberGuest }}</p>
+
+            {% if roomBooking.bookingState == 'active' and user.user_type != 'client' %}
+                {% if not roomBooking.checkIn %}
+                    <a href="{% url 'checkIn' roomBooking.id%}"><button type="submit" class="button-66">Confirm check-in</button></a>
+                {% else %}
+                    <a href="{% url 'checkOut' roomBooking.id%}"><button type="submit" class="button-66">Confirm check-out</button></a>
+                {% endif %}
+                <a href="{% url 'billDetails' bill.id %}"><button type="submit" class="button-66">Ver pagos pendientes</button></a>
+            {% endif %}
+        </ul>
+    </div>
+
+    {% if messages %}
+        <div style="text-align: center">
+            {% for message in messages %}
+                <p style="color: darkred"> {{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+</body>
+{% endif %}
+{% endblock %}

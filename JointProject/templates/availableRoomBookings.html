@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <head>
+        <title>Habitacions disponibles</title>
+    </head>
+    
+<title>Habitaciones disponibles</title>
+    <link rel="stylesheet" href="{% static 'css/show_tables.css' %}">
+
+<body>
+    <h1>Habitaciones disponibles</h1>
+    <div class="buscador-dies">
+        <form method="post" action="{% url 'getAvailableRooms' %}">
+            {% csrf_token %}
+            <label for="startDate">Fecha de inicio:</label>
+            <input type="date" id="startDate" name="startDate">
+            <label for="endDate">Fecha de finalización:</label>
+            <input type="date" id="endDate" name="endDate">
+            <label for="id_capacity">Numero de huespedes:</label>
+            <input type="number" name="capacity" id="id_capacity">
+            <select id="roomType" name="roomType">
+                <option value="standard">Estandar</option>
+                <option value="deluxe">De lujo</option>
+                <option value="low-cost">Economica</option>
+            </select>
+            <button type="submit">Ver disponibilidad</button>
+        </form>
+    </div>
+    <table class="styled-table available-table">
+        <thead>
+            <tr>
+                <th>Habitación</th>
+                <th>Tipo de habitación</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for room in rooms %}
+            <tr>
+                <td>{{ room.roomNumber }}</td>
+                <td>{{ room.roomType }}</td>
+                <td><a href="{% url 'createRoomBookings' room.id startDate endDate %}" role="button"><button class="button-66" type="submit">Reservar</button></a></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No hay habitaciones {{ room.roomType }} disponibles en esta fecha y hora</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+{% endblock %}

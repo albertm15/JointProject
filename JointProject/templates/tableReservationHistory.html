@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <head>
+        <title>Reservas restaurante</title>
+    </head>
+
+<title>Reservas de mesas</title>
+<link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
+
+<body>
+    <h1>Reservas de mesas</h1>
+    <table class="styled-table available-table">
+        <thead>
+            <tr class="red-background">
+                <th>Numero de mesa</th>
+                <th>Fecha</th>
+                <th>Turno</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tablesReservation in tablesReservations %}
+            <tr>
+                <td>{{ tablesReservation.tableReserved }}</td>
+                <td>{{ tablesReservation.reservationDate }}</td>
+                <td>{{ tablesReservation.shift }}</td>
+                <td><a href="{% url 'tableReservationDetails' table_id=tablesReservation.id %}" class="button-66" role="button">Consultar reserva</a></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No hay mesas reservadas en esta fecha y hora</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+{% endblock %}

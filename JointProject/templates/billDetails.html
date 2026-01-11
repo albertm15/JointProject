@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <head>
+        <title>Detalls cobrament</title>
+    </head>
+    
+    <title>Detalles del pago del cliente</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/show_tables.css' %}">
+    
+<body>
+    <h1>Detalles del pago del cliente</h1>
+    <table class="styled-table available-table">
+        <thead>
+            <tr>
+                <th>Reservas de habitaciones</th>
+                <th>Precio total</th>
+                <th>Nombre</th>
+                <th>Detalles</th>
+                <th>Precio</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in bill.items.all %}
+            <tr>
+                <td>{{ bill.roomBooking }}</td>
+                <td>{{ totalPrice }} <a href="{% url 'payBills' bill.id%}" class="button-66" role="button">Pagar</a></td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.details }}</td>
+                <td>{{ item.price }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+{% endblock %}
